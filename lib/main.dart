@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latihan_e_commerce_app/presentation/views/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      initialRoute: HomePage.routeName,
+      routes: {
+        HomePage.routeName: (context) => const HomePage(),
+      },
     );
   }
 }
