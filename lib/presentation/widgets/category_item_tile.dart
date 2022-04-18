@@ -10,9 +10,8 @@ class CategoryItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      margin: const EdgeInsets.symmetric(horizontal: 4),
+      margin: const EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
         color: whiteColor,
         border: Border.all(color: greyTwoColor),

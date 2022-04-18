@@ -28,8 +28,8 @@ class MostPopularItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      width: 172,
-      height: 172,
+      width: 180,
+      height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         color: backgroundColor(),
@@ -39,7 +39,7 @@ class MostPopularItem extends StatelessWidget {
         children: [
           Container(
             width: 121,
-            height: 86,
+            height: 100,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(image),

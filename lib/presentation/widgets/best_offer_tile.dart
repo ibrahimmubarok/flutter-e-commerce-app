@@ -15,6 +15,7 @@ class BestOfferTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 160,
+      height: 166,
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
