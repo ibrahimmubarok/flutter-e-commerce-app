@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:device_preview/device_preview.dart';
 
 import 'presentation/views/home_page.dart';
 
 void main() {
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,11 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      darkTheme: ThemeData.dark(),
-      title: 'Flutter Demo',
+      title: 'E-Commerce App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

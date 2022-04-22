@@ -45,9 +45,10 @@ class _SearchTextEditState extends State<SearchTextEdit> {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: widget.textInputType,
-      cursorColor: greyThreeColor,
+      cursorColor: greenColor,
       controller: widget.textEditingController,
       maxLines: 1,
+      cursorWidth: 2,
       style: primaryTextStyle.copyWith(fontSize: 14),
       textInputAction: widget.textInputAction,
       decoration: InputDecoration(
