@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:latihan_e_commerce_app/cubit/page_cubit.dart';
+import 'package:latihan_e_commerce_app/presentation/views/main_page.dart';
 
 import 'presentation/views/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -12,15 +16,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'E-Commerce App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => PageCubit()),
+      ],
+      child: MaterialApp(
+        title: 'E-Commerce App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: MainPage.routeName,
+        routes: {
+          MainPage.routeName: (context) => const MainPage(),
+          HomePage.routeName: (context) => const HomePage(),
+        },
       ),
-      initialRoute: HomePage.routeName,
-      routes: {
-        HomePage.routeName: (context) => const HomePage(),
-      },
     );
   }
 }

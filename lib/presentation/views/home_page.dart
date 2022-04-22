@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/best_offer_tile.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/category_item_tile.dart';
-import 'package:latihan_e_commerce_app/presentation/widgets/custom_animated_bottom_bar.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/most_popular_item_tile.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/search_text_edit.dart';
 import 'package:latihan_e_commerce_app/utils/theme.dart';
@@ -17,13 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _searchController = TextEditingController();
-  late int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: _buildBottomBar(),
       body: SafeArea(
         child: ListView(
           children: [
@@ -155,48 +152,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBottomBar() {
-    return CustomAnimatedBottomBar(
-      containerHeight: 70,
-      backgroundColor: whiteColor,
-      selectedIndex: _currentIndex,
-      showElevation: true,
-      itemCornerRadius: 24,
-      curve: Curves.easeIn,
-      onItemSelected: (index) => setState(() => _currentIndex = index),
-      items: const [
-        BottomNavyBarItem(
-          icon: Icon(Icons.home),
-          title: Text('Home'),
-          activeColor: Colors.green,
-          inActiveColor: Colors.grey,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: Icon(Icons.favorite_border),
-          title: Text('Favorite'),
-          activeColor: Colors.green,
-          inActiveColor: Colors.grey,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: Icon(Icons.shopping_cart),
-          title: Text('Shopping'),
-          activeColor: Colors.green,
-          inActiveColor: Colors.grey,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: Icon(Icons.message),
-          title: Text('Message'),
-          activeColor: Colors.green,
-          inActiveColor: Colors.grey,
-          textAlign: TextAlign.center,
         ),
       ],
     );
