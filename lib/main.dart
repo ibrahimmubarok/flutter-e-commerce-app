@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:latihan_e_commerce_app/cubit/page_cubit.dart';
 import 'package:latihan_e_commerce_app/presentation/views/main_page.dart';
+import 'package:latihan_e_commerce_app/utils/theme.dart';
 
 import 'presentation/views/home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: greenTwoColor.withOpacity(0.5),
+    ),
+  );
+
   runApp(const MyApp());
 }
 

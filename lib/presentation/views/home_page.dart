@@ -1,8 +1,12 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/best_offer_tile.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/category_item_tile.dart';
+import 'package:latihan_e_commerce_app/presentation/widgets/image_slider_item.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/most_popular_item_tile.dart';
 import 'package:latihan_e_commerce_app/presentation/widgets/search_text_edit.dart';
+import 'package:latihan_e_commerce_app/utils/curve_painter.dart';
 import 'package:latihan_e_commerce_app/utils/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +20,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _searchController = TextEditingController();
+  int _currentIndex = 0;
+  final List<String> cardList = [
+    'https://i.pinimg.com/originals/35/11/c5/3511c58b431fbe25950bf75cfbacf37d.png',
+    'https://ecs7.tokopedia.net/img/kjjBfF/2021/2/2/ed3a549c-72c6-4f52-bbf1-b6e44da735b0.png',
+    'https://ecs7.tokopedia.net/img/cache/730/kjjBfF/2021/6/15/616df725-64b7-4de8-b6c7-4d8d9fff7a68.png',
+    'https://ecs7.tokopedia.net/img/cache/730/kjjBfF/2021/10/23/a30ba0d2-b49c-477a-aeeb-1c9f36ff7cd3.jpg',
+    'https://images.tokopedia.net/img/Template/Broadcast-chat1-Mega-cashback-Oktober.jpg',
+  ];
+
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +44,12 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: ListView(
           children: [
+            // WIDGET : HEADER
+            header(),
             // WIDGET : SEARCH BAR
             searchBar(),
+            // WIDGET : IMAGE SLIDER
+            imageSliderAuto(),
             // WIDGET : CATEGORY CARD
             categoryCard(),
             // WIDGET : BEST OFFER
@@ -38,9 +62,61 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget header() {
+    return Container(
+      width: double.infinity,
+      height: 120,
+      child: Stack(
+        children: [
+          CustomPaint(
+            size: MediaQuery.of(context).size,
+            painter: CurvePainter(),
+          ),
+          // Positioned(
+          //   bottom: 60,
+          //   left: 30,
+          //   child: Row(
+          //     children: [
+          //       SvgPicture.asset(
+          //         'assets/images/tokopedia_logo.svg',
+          //         height: 50,
+          //         width: 50,
+          //       ),
+          //       const SizedBox(width: 8),
+          //       SvgPicture.asset(
+          //         'assets/images/tokopedia.svg',
+          //         height: 25,
+          //         width: 60,
+          //       ),
+          //     ],
+          //   ),
+          // )
+          // Positioned(
+          //   bottom: 70,
+          //   left: 80,
+          //   child: SvgPicture.asset(
+          //     'assets/images/tokopedia_logo.svg',
+          //     height: 50,
+          //     width: 50,
+          //   ),
+          // ),
+          Positioned(
+            bottom: 60,
+            left: 30,
+            child: SvgPicture.asset(
+              'assets/images/tokopedia.svg',
+              height: 30,
+              width: 60,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget searchBar() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       child: SearchTextEdit(
         hint: 'Cari Produk',
         textInputType: TextInputType.text,
@@ -114,6 +190,57 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget imageSliderAuto() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Center(
+        child: Column(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  pauseAutoPlayOnTouch: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.8,
+                  aspectRatio: 3,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  }),
+              items: cardList.map((item) {
+                return ImageSliderItem(image: item);
+              }).toList(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: map<Widget>(
+                cardList,
+                (index, url) {
+                  return Container(
+                    width: _currentIndex == index ? 30 : 10,
+                    height: 10,
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: _currentIndex == index
+                          ? greenColor
+                          : greenColor.withOpacity(0.3),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget mostPopularItem() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,6 +280,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        const SizedBox(height: 90),
       ],
     );
   }
